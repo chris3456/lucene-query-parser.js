@@ -272,6 +272,55 @@ range_operator_exp
             'inclusive': false
         };
     }
+  / '[' term_min:quoted_term _* 'TO' _+ term_max:quoted_term ']'
+    {
+        return {
+            'term_min': term_min,
+            'term_max': term_max,
+            'inclusive': true
+        };
+    }
+/ '[' term_min:quoted_term _* 'TO' _+ term_max:unquoted_term ']'
+    {
+        return {
+            'term_min': term_min,
+            'term_max': term_max,
+            'inclusive': true
+        };
+    }
+/ '[' term_min:unquoted_term _* 'TO' _+ term_max:quoted_term ']'
+    {
+        return {
+            'term_min': term_min,
+            'term_max': term_max,
+            'inclusive': true
+        };
+    }
+  / '{' term_min:quoted_term _* 'TO' _+ term_max:quoted_term '}'
+    {
+        return {
+            'term_min': term_min,
+            'term_max': term_max,
+            'inclusive': false
+        };
+    }
+  / '{' term_min:quoted_term _* 'TO' _+ term_max:unquoted_term '}'
+    {
+        return {
+            'term_min': term_min,
+            'term_max': term_max,
+            'inclusive': false
+        };
+    }
+  / '{' term_min:unquoted_term _* 'TO' _+ term_max:quoted_term '}'
+    {
+        return {
+            'term_min': term_min,
+            'term_max': term_max,
+            'inclusive': false
+        };
+    }
+
 
 operator_exp
   = _* operator:operator _+
